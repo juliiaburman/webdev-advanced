@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+}
+
+/*NAVIGATION BAR*/
+.navigation-bar {
+  display: flex;
+  background-color: #365aa4;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.navigation-menu {
+  display: flex;
+  list-style: none;
+}
+
+.login-menu {
+  margin-right: 2rem;
+  color: white;
+}
+
+.login-menu:hover {
+  color: #73796f;
+}
+
+.logo {
+  width: 10em;
+  margin-left: 1rem;
+}
