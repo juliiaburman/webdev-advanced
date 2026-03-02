@@ -18,13 +18,15 @@
   list-style: none;
 }
 
-.login-menu a {
+.login-menu a, 
+.add-venue-menu a  {
   color: white;
   text-decoration: none;
   margin-right: 5rem;
 }
 
-.login-menu:hover a {
+.login-menu:hover a,
+.add-venue-menu:hover a {
   text-decoration: underline;
 }
 
@@ -36,7 +38,7 @@
 /*HOME PAGE*/
 
 
-/*LOGIN PAGE*/
+/*LOGIN & ADD VENUE PAGE*/
 .login-container {
   margin: auto;
   margin-top: 8rem;
@@ -54,7 +56,8 @@
   margin-bottom: 2rem;
 }
 
-.login-form {
+.login-form,
+.add-venue-form {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
@@ -63,7 +66,8 @@
   width: 75%;
 }
 
-.login-input {
+.login-input,
+.add-venue-input {
   margin-top: 0.2rem;
   margin-bottom: 0.8rem;
   border: 0.05rem solid rgb(161, 160, 160);

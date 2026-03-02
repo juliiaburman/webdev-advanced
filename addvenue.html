@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/main.css" />
+    <title>Login page</title>
+  </head>
+  <body>
+    <script type="module" src="/client.js"></script>
+    <!-- NAVIGATION BAR -->
+    <header>
+      <nav class="navigation-bar">
+        <a href="/public/index.html"
+          ><img class="logo" src="/public/img/jkpgcity.png" alt="Logo"
+        /></a>
+        <ul class="navigation-menu">
+          <li class="add-venue-menu"><a href="/addvenue.html">ADD VENUE</a></li>
+          <li class="login-menu"><a href="/login.html">LOGIN</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ADD VENUE -->
+    <div>
+      <div class="login-container">
+        <h1 class="login-text">ADD VENUE</h1>
+        <form class="add-venue-form" action="/addvenue.html" method="POST">
+          <input
+            class="add-venue-input"
+            type="text"
+            name="name"
+            placeholder="Name"
+          />
+          <input
+            class="add-venue-input"
+            type="url"
+            name="website-url"
+            placeholder="Website URL"
+          />
+          <input
+            class="add-venue-input"
+            type="url"
+            name="image-url"
+            placeholder="Image URL"
+          />
+          <select name="district" id="add-district">
+            <option value="Öster">Öster</option>
+            <option value="Väster">Väster</option>
+            <option value="Atollen">Atollen</option>
+            <option value="Tändsticksområdet">Tändsticksområdet</option>
+          </select>
+          <div class="submit-container">
+            <input class="submit-login" type="submit" value="Add venue" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

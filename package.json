@@ -1,0 +1,15 @@
+{
+  "name": "webdev-advanced",
+  "version": "1.0.0",
+  "description": "Julia & Julia's WebDev project",
+  "main": "client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
