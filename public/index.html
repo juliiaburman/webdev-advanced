@@ -9,12 +9,14 @@
   <body>
     <script type="module" src="/client.js"></script>
 
-<!-- NAVIGATION BAR -->
-<header>
-    <nav class="navigation-bar">
-      <a href="/index.html"><img class="logo" src="/img/jkpgcity.png" alt="Logo"/></a>
-      <ul class="navigation-menu">
-        <li class="add-venue-menu"><a href="/addvenue.html">ADD VENUE</a></li>
+    <!-- NAVIGATION BAR -->
+    <header>
+      <nav class="navigation-bar">
+        <a href="/index.html"
+          ><img class="logo" src="/img/jkpgcity.png" alt="Logo"
+        /></a>
+        <ul class="navigation-menu">
+          <li class="add-venue-menu"><a href="/addvenue.html">ADD VENUE</a></li>
           <li class="login-menu"><a href="/login.html">LOGIN</a></li>
         </ul>
       </nav>
@@ -26,18 +28,25 @@
 
 <!--Cards-->
 <section class="cards-section">
-  <h1>Venues & Activities</h1>
-  <div class="venue-cards">
-    <img src="" alt="Image of ..." />
-  </div>
-  <div class="card-info">
-    <h3>Restaurant X</h3>
-    <p class="district">Jönköping</p>
-    <p class="venue-type">Venue type: Restaurants</p>
+  <div class="cards-header">
+    <h1>Venues & Activities</h1>
+    <div>Venue Name</div>
+    <div>District</div>
+    <div>Venue Type</div>
   </div>
 
-  <div class="card-buttons">
-    <buttons class="edit-button">Edit</buttons>
-    <button class="delete-button">Delete</button>
+  <div class="venue-card">
+    <div class="venue-leftside">
+      <img src="cafeimage.png" alt="Cafe placeholder image" />
+      <div class="venue-text">
+        <h3>La Vue</h3>
+        <p>Östra Centrum</p>
+      </div>
+    </div>
+
+    <div class="venuecard-buttons">
+      <button class="edit-button">Edit</button>
+      <button class="delete-button">Delete</button>
+    </div>
   </div>
 </section>

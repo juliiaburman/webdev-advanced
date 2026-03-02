@@ -1,6 +1,6 @@
 * {
   margin: 0;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 /*NAVIGATION BAR*/
@@ -18,8 +18,8 @@
   list-style: none;
 }
 
-.login-menu a, 
-.add-venue-menu a  {
+.login-menu a,
+.add-venue-menu a {
   color: white;
   text-decoration: none;
   margin-right: 5rem;
@@ -37,6 +37,104 @@
 
 /*HOME PAGE*/
 
+/*VENUE CARDS SECTION*/
+.cards-section {
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 2.5rem;
+}
+
+.cards-header {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1.2fr 1fr;
+  align-items: center;
+  background: #e9edf3;
+  padding: 18px 25px;
+  border-radius: 12px;
+  font-weight: 500;
+  color: #5a6474;
+  margin-bottom: 30px;
+}
+
+.cards-header h1 {
+  grid-column: 1 / -1;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.venue.card {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1.2fr 1fr;
+  align-items: center;
+  background: white;
+  padding: 20px 25px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.venue-leftside {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.venue-leftside img {
+  width: 120px;
+  height: 85px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.venue-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.venue-text p {
+  color: #7b8794;
+  font-size: 14px;
+}
+
+.venue-district,
+.venue-type {
+  color: #333;
+  font-size: 15px;
+}
+
+.venuecard-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-button {
+  background-color: #365aa4;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.delete-button {
+  background-color: #e06666;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
 
 /*LOGIN & ADD VENUE PAGE*/
 .login-container {
