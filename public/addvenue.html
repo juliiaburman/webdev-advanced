@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/main.css" />
+    <link rel="stylesheet" href="/main.css" />
     <title>Login page</title>
   </head>
   <body>
@@ -11,8 +11,8 @@
     <!-- NAVIGATION BAR -->
     <header>
       <nav class="navigation-bar">
-        <a href="/public/index.html"
-          ><img class="logo" src="/public/img/jkpgcity.png" alt="Logo"
+        <a href="/index.html"
+          ><img class="logo" src="/img/jkpgcity.png" alt="Logo"
         /></a>
         <ul class="navigation-menu">
           <li class="add-venue-menu"><a href="/addvenue.html">ADD VENUE</a></li>
@@ -44,10 +44,19 @@
             placeholder="Image URL"
           />
           <select name="district" id="add-district">
+            <option value="District">Select a district</option>
             <option value="Öster">Öster</option>
             <option value="Väster">Väster</option>
             <option value="Atollen">Atollen</option>
             <option value="Tändsticksområdet">Tändsticksområdet</option>
+          </select>
+          <select name="venue" id="venue-type">
+            <option value="Venue">Select a venue type</option>
+            <option value="Restaurant">Restaurant</option>
+            <option value="Café">Café</option>
+            <option value="Shop">Shop</option>
+            <option value="Services">Services</option>
+            <option value="Art/Culture">Art/Culture</option>
           </select>
           <div class="submit-container">
             <input class="submit-login" type="submit" value="Add venue" />

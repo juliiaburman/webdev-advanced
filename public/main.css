@@ -79,6 +79,10 @@
   padding-left: 0.5rem;
 }
 
+#venue-type {
+  margin-top: 1rem;
+}
+
 .submit-login {
   width: 5rem;
   height: 2.5rem;
