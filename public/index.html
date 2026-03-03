@@ -26,23 +26,38 @@
 
 <!--HOME PAGE-->
 
-<!--Cards-->
+<!--VENUE CARDS SECTION-->
 <section class="cards-section">
+  <h1>Venues & Activities</h1>
+
+  <div class="sort-container">
+    <select id="sort by">
+      <option value="">Sort by:</option>
+      <option value="district">District</option>
+      <option value="venue-type">Venue Type</option>
+    </select>
+  </div>
+
   <div class="cards-header">
-    <h1>Venues & Activities</h1>
+    <!--Empty column for the image-->
+    <div></div>
     <div>Venue Name</div>
     <div>District</div>
     <div>Venue Type</div>
+    <div>Action</div>
   </div>
 
   <div class="venue-card">
-    <div class="venue-leftside">
-      <img src="cafeimage.png" alt="Cafe placeholder image" />
-      <div class="venue-text">
-        <h3>La Vue</h3>
-        <p>Östra Centrum</p>
-      </div>
+    <div class="venue-image">
+      <img src="img/lavue.jpg" alt="Cafe placeholder image" />
     </div>
+
+    <div class="venue-name">
+      <h3>La Vue</h3>
+    </div>
+
+    <div class="venue-district">Östra Centrum</div>
+    <div class="venue-type">Restaurant/Cafe</div>
 
     <div class="venuecard-buttons">
       <button class="edit-button">Edit</button>

@@ -38,64 +38,73 @@
 /*HOME PAGE*/
 
 /*VENUE CARDS SECTION*/
-.cards-section {
-  max-width: 1000px;
-  margin: auto;
-  margin-top: 2.5rem;
+.sort-container {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  font-size: 16px;
+  color: #5f6c7b;
 }
 
-.cards-header {
-  display: grid;
-  grid-template-columns: 2.5fr 1fr 1.2fr 1fr;
-  align-items: center;
-  background: #e9edf3;
-  padding: 18px 25px;
-  border-radius: 12px;
-  font-weight: 500;
-  color: #5a6474;
+sort-container select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cards-section {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 20px;
+}
+
+.cards-section h1 {
   margin-bottom: 30px;
 }
 
-.cards-header h1 {
-  grid-column: 1 / -1;
-  margin-bottom: 25px;
-  font-size: 1.8rem;
-  color: #333;
+.cards-header,
+.venue-card {
+  display: grid;
+  grid-template-columns: 140px 2fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  align-items: center;
 }
 
-.venue.card {
-  display: grid;
-  grid-template-columns: 2.5fr 1fr 1.2fr 1fr;
-  align-items: center;
+.cards-header > div:nth-child(2),
+.venue-card > .venue-name {
+  padding-left: 25px;
+}
+
+.cards-header {
+  background: #e9edf3;
+  padding: 15px 25px;
+  border-radius: 12px;
+  color: #5f6c7b;
+  margin-bottom: 20px;
+}
+
+.venue-card {
   background: white;
   padding: 20px 25px;
   border-radius: 14px;
-  margin-bottom: 18px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
 }
 
-.venue-leftside {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.venue-leftside img {
-  width: 120px;
-  height: 85px;
+.venue-image img {
+  width: 140px;
+  height: 115px;
   object-fit: cover;
   border-radius: 12px;
 }
 
-.venue-text h3 {
-  font-size: 18px;
+.venue-name h3 {
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 4px;
-}
-
-.venue-text p {
-  color: #7b8794;
-  font-size: 14px;
 }
 
 .venue-district,
@@ -106,21 +115,23 @@
 
 .venuecard-buttons {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
 }
 
 .edit-button {
   background-color: #365aa4;
   color: white;
   border: none;
-  padding: 8px 18px;
+  padding: 8px 26px;
   border-radius: 10px;
   font-size: 14px;
   cursor: pointer;
 }
 
 .delete-button {
-  background-color: #e06666;
+  background: #e06666;
   color: white;
   border: none;
   padding: 8px 18px;
@@ -131,9 +142,7 @@
 
 .edit-button:hover,
 .delete-button:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
-  transition: all 0.2s ease;
+  opacity: 0.6;
 }
 
 /*LOGIN & ADD VENUE PAGE*/
