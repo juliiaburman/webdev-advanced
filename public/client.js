@@ -36,6 +36,7 @@ function fetchVenues() {
         // Append the card to the container
         container.appendChild(card);
 
+        // FETCH FOR app.delete
         // Add delete functionality for this card
         const deleteBtn = card.querySelector(".delete-button");
         deleteBtn.addEventListener("click", async () => {
@@ -68,8 +69,8 @@ function fetchVenues() {
 const addVenueForm = document.querySelector(".add-venue-form");
 
 if (addVenueForm) {
-  addVenueForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  addVenueForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
     const formData = new FormData(addVenueForm);
     const data = {
@@ -153,9 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("editvenue.html")) {
     //run the loadVenueEdit function if the editvenue.html is loaded
     loadVenueEdit();
-    const form = document.querySelector("#edit-venue-form");
-    form.addEventListener("submit", updateVenue);
-  }
+    const editForm = document.querySelector("#edit-venue-form");
+    if (editForm) {
+    editForm.addEventListener("submit", updateVenue);
+  }}
 });
-
-// FETCH FOR app.delete

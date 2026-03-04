@@ -171,7 +171,8 @@ sort-container select {
 }
 
 .login-form,
-.add-venue-form {
+.add-venue-form,
+#edit-venue-form {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
