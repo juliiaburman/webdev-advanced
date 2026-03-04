@@ -38,9 +38,9 @@ app.get("/", (req, res) => {
 //---------
 // REST API
 //---------
-app.get("/api/venues", (req, res) => {
-  // CRUD READ / SELECT
-  //creating a route
+
+// CRUD READ / using SELECT
+app.get("/api/venues", (req, res) => { //creating a route
   const query = {
     text: `SELECT * FROM venues;`,
   };
@@ -57,21 +57,40 @@ app.get("/api/venues", (req, res) => {
     });
 });
 
+  // CRUD CREATE / using INSERT INTO
 app.post("/api/venues", (req, res) => {
-  // CRUD CREATE / INSERT INTO
+
 });
 
-app.put("/api/venues", (req, res) => {
-  // CRUD UPDATE / UPDATE
+// CRUD UPDATE / using UPDATE
+app.put("/api/venues/:id", (req, res) => { //creating an API route that returns one venue
+const venueId = req.params.id;
+
+const query = {
+    text: `SELECT * FROM venues WHERE id = $1;`,
+    values: [id]
+  };
+  client
+    .query(query) //run the query
+    .then((result) => {
+      //awaits the result of the query
+      console.log(result.rows[0]); //then print the resuls
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.error("Error executing query", err.stack);
+      res.status(500).json({ error: "Internal server error" });
+    });
+
 });
 
+// CRUD DELETE / using DELETE
 app.delete("/api/venues", (req, res) => {
-  // CRUD DELETE / DELETE
+
 });
 
 // Start server
-app.listen(PORT, () => {
-  //starts the server
+app.listen(PORT, () => { //starts the server
   console.log(`Server running at http://localhost:${PORT}`); //prints a message so we know the server is running
-  connectDB(); // should be called before any other function
+  connectDB(); // the database connects everytime the server starts
 });

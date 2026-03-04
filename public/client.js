@@ -1,4 +1,5 @@
-// Retrieves the venue data from the server, converting it into JSON
+// FETCH FOR app.get
+// Retrieves the venue data from the server, converting it into JSON and displaying as cards on the homepage
 function fetchVenues() {
   fetch("/api/venues")
     .then((response) => response.json())
@@ -20,10 +21,10 @@ function fetchVenues() {
     <div class="venue-type">${element.category}</div>
 
     <div class="venuecard-buttons">
-      <button class="edit-button">Edit</button>
+      <a href="/editvenue.html?id=${element.id}"><button class="edit-button">Edit</button></a>
       <button class="delete-button">Delete</button>
     </div></div>`;
-        document.getElementById("listofshops").appendChild(card);
+        document.getElementById("listofvenues").appendChild(card);
       });
     });
 }
@@ -31,3 +32,14 @@ function fetchVenues() {
 document.addEventListener("DOMContentLoaded", () => {
   fetchVenues();
 });
+
+// FETCH FOR app.post
+
+
+
+// FETCH FOR app.put
+
+
+
+
+// FETCH FOR app.delete
