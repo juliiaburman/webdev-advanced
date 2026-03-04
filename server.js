@@ -42,13 +42,11 @@ app.get("/", (req, res) => {
 // CRUD READ / using SELECT
 app.get("/api/venues", (req, res) => { //creating a route
   const query = {
-    text: `SELECT * FROM venues;`,
-  };
+  text: `SELECT * FROM venues ORDER BY id ASC;`
+};
   client
     .query(query) //run the query
-    .then((result) => {
-      //awaits the result of the query
-      console.log(result.rows[0]); //then print the resuls
+    .then((result) => { //awaits the result of the query
       res.json(result.rows);
     })
     .catch((err) => {
@@ -63,26 +61,47 @@ app.post("/api/venues", (req, res) => {
 });
 
 // CRUD UPDATE / using UPDATE
-app.put("/api/venues/:id", (req, res) => { //creating an API route that returns one venue
+//
+app.get("/api/venues/:id", (req, res) => { //creating an API route that returns one venue
 const venueId = req.params.id;
-
 const query = {
     text: `SELECT * FROM venues WHERE id = $1;`,
-    values: [id]
+    values: [venueId]
   };
   client
     .query(query) //run the query
-    .then((result) => {
-      //awaits the result of the query
-      console.log(result.rows[0]); //then print the resuls
-      res.json(result.rows);
+    .then((result) => { //awaits the result of the query
+      res.json(result.rows[0]);
     })
     .catch((err) => {
       console.error("Error executing query", err.stack);
       res.status(500).json({ error: "Internal server error" });
     });
-
 });
+
+//updating the venue data through the form
+app.put("/api/venues/:id", express.json(), (req, res) => { //creating a PUT API route and express.json() allows Express to read JSON data from the request body.
+  const venueId = req.params.id;
+  const { name, url, image_url, district, category } = req.body; //extracts the updated values from the request body
+  const query = { //creates a query object for PostgreSQL.
+    text: `
+      UPDATE venues
+      SET name = $1, url = $2, image_url = $3, district = $4, category = $5
+      WHERE id = $6
+    `,
+    values: [name, url, image_url, district, category, venueId]
+  };
+
+  client.query(query) //sends the SQL query to PostgreSQL
+    .then(() => {
+      res.json({ message: "Venue updated successfully" });
+    })
+    .catch(err => {
+      console.error("Error updating venue", err.stack);
+      res.status(500).json({ error: "Internal server error" });
+    });
+});
+
 
 // CRUD DELETE / using DELETE
 app.delete("/api/venues", (req, res) => {

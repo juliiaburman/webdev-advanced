@@ -103,6 +103,15 @@ sort-container select {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 4px;
+  color: black;
+}
+
+.venue-name a {
+  text-decoration: none;
+}
+
+.venue-name:hover {
+  text-decoration: underline;
 }
 
 .venue-district,

@@ -23,7 +23,7 @@
     <div>
       <div class="login-container">
         <h1 class="login-text">EDIT VENUE</h1>
-        <form class="add-venue-form" action="/addvenue.html" method="PUT">
+        <form class="add-venue-form" id="edit-venue-form">
           <input
             class="add-venue-input"
             type="text"
@@ -32,13 +32,13 @@
           />
           <input
             class="add-venue-input"
-            type="url"
+            type="text"
             name="website-url"
             placeholder="Website URL"
           />
           <input
             class="add-venue-input"
-            type="url"
+            type="text"
             name="image-url"
             placeholder="Image URL"
           />
@@ -52,11 +52,11 @@
           </select>
           <select name="venue" id="venue-type">
             <option value="Venue">Select a venue type</option>
-            <option value="Restaurant">Shop</option>
-            <option value="Café">Service</option>
+            <option value="shop">Shop</option>
+            <option value="service">Service</option>
           </select>
           <div class="submit-container">
-            <input class="submit-login" type="submit" value="Add venue" />
+            <input class="submit-login" type="submit" value="Edit venue" />
           </div>
         </form>
       </div>
