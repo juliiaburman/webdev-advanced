@@ -40,7 +40,8 @@ app.get("/", (req, res) => {
 //---------
 
 // CRUD READ / using SELECT
-app.get("/api/venues", (req, res) => { //creating a route
+app.get("/api/venues", (req, res) => {
+  //creating a route
   const query = {
     text: `SELECT * FROM venues;`,
   };
@@ -57,18 +58,40 @@ app.get("/api/venues", (req, res) => { //creating a route
     });
 });
 
-  // CRUD CREATE / using INSERT INTO
-app.post("/api/venues", (req, res) => {
+// CRUD CREATE / using INSERT INTO
+app.post("/api/venues", async (req, res) => {
+  try {
+    const {
+      name,
+      "website-url": website_url,
+      "image-url": image_url,
+      district,
+      venue,
+    } = req.body;
 
+    const query = {
+      text: `INSERT INTO venues (name, url, image_url, district, category)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;`,
+      values: [name, website_url, image_url, district, venue],
+    };
+
+    const result = await client.query(query);
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error("Error inserting venue", err.stack);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // CRUD UPDATE / using UPDATE
-app.put("/api/venues/:id", (req, res) => { //creating an API route that returns one venue
-const venueId = req.params.id;
+app.put("/api/venues/:id", (req, res) => {
+  //creating an API route that returns one venue
+  const venueId = req.params.id;
 
-const query = {
+  const query = {
     text: `SELECT * FROM venues WHERE id = $1;`,
-    values: [id]
+    values: [id],
   };
   client
     .query(query) //run the query
@@ -81,16 +104,34 @@ const query = {
       console.error("Error executing query", err.stack);
       res.status(500).json({ error: "Internal server error" });
     });
-
 });
 
 // CRUD DELETE / using DELETE
-app.delete("/api/venues", (req, res) => {
+app.delete("/api/venues/:id", async (req, res) => {
+  const venueId = req.params.id;
 
+  try {
+    const query = {
+      text: `DELETE FROM venues WHERE id = $1 RETURNING *;`,
+      values: [venueId],
+    };
+
+    const result = await client.query(query);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "Venue not found" });
+    }
+
+    res.status(200).json({ message: "Venue deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting venue", err.stack);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // Start server
-app.listen(PORT, () => { //starts the server
+app.listen(PORT, () => {
+  //starts the server
   console.log(`Server running at http://localhost:${PORT}`); //prints a message so we know the server is running
   connectDB(); // the database connects everytime the server starts
 });
