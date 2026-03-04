@@ -1,7 +1,8 @@
 //This code should only be run once to add the stores.json into the database
 
-// Set up a database client to allow Node to connect to the PostgreSQL database running in the Docker container
-const { Client } = require("pg");
+const { Client } = require("pg"); // Set up a database client to allow Node to connect to the PostgreSQL database running in the Docker container
+const fs = require("fs"); //Import Node's file system module so we can read the stores.json file
+
 // Configure the client to connect to your containerized PostgreSQL
 const client = new Client({
   host: "localhost", // since the container's port is mapped to localho
@@ -32,12 +33,17 @@ async function disconnectDB() {
 
 connectDB(); // should be called before any other function
 
-let data = readfile("stores.json");
-let id = 1;
-data.forEach((s) => {
-  const res = client.query(query, [id, s.name, s.url, s.district]);
-  console.log(res.rows[0]);
-  id = id + 1;
+// Read the stores.json file and convert it into a JavaScript object
+const data = JSON.parse(fs.readFileSync("stores.json", "utf8"));
+
+data.forEach((venue) => { //Insert venues in the database
+const query = {
+    text: `INSERT INTO venues (name, url, image_url, district, category) VALUES ($1, $2, $3, $4, $5)`,
+    values: [venue.name, venue.url, venue.image_url, venue.district, venue.category]
+  };
+
+client.query(query);
+console.log("Inserted venue:", venue.name);
 });
 
 disconnectDB(); //should be called at the end
