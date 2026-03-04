@@ -1,3 +1,6 @@
+//array for storing the current sorting option in the dropdown
+let currentSort = "";
+
 // FETCH FOR app.get
 // Retrieves the venue data from the server, converts it into JSON, and displays as cards on the homepage
 function fetchVenues() {
@@ -8,6 +11,14 @@ function fetchVenues() {
     .then((response) => response.json())
     .then((data) => {
       console.log("---------> DATA:", data);
+
+      //Sorting using dropdown menu
+      if (currentSort === "district") { //checks if the user selected the district sorting in the dropdown menu
+        data.sort((a, b) => a.district.localeCompare(b.district)); //sort() always compare two items at the time to see which item comes first. here it 
+      }
+      if (currentSort === "category") {
+        data.sort((a, b) => a.category.localeCompare(b.category));
+      }
 
       data.forEach((element) => {
         // Create a new card div
@@ -150,6 +161,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("index.html")) {
     //run the fetchVenues function if the index.html is loaded
     fetchVenues();
+
+    const sortDropdown = document.querySelector("#sort-by"); //when the user selects a sorting option, update currentSort and reload the venues list
+    if (sortDropdown) {
+      sortDropdown.addEventListener("change", () => {
+        currentSort = sortDropdown.value;
+        fetchVenues();
+      });
+    }
   }
   if (window.location.pathname.includes("editvenue.html")) {
     //run the loadVenueEdit function if the editvenue.html is loaded
