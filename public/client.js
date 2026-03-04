@@ -65,9 +65,39 @@ function fetchVenues() {
 }
 
 // FETCH FOR app.post
+const addVenueForm = document.querySelector(".add-venue-form");
 
+if (addVenueForm) {
+  addVenueForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
+    const formData = new FormData(addVenueForm);
+    const data = {
+      name: formData.get("name"),
+      "website-url": formData.get("website-url"),
+      "image-url": formData.get("image-url"),
+      district: formData.get("district"),
+      venue: formData.get("venue"),
+    };
 
+    try {
+      const response = await fetch("/api/venues", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Venue added successfully!");
+        window.location.href = "/index.html";
+      } else {
+        alert("Failed to add venue.");
+      }
+    } catch (err) {
+      console.error("Error submitting venue:", err);
+    }
+  });
+}
 // FETCH FOR app.put
 //getting the prefilled form for the venue we want to edit
 function loadVenueEdit() {
@@ -75,13 +105,13 @@ function loadVenueEdit() {
   const id = urlData.get("id"); //get the venue id from the URL query parameters
 
   fetch(`/api/venues/${id}`) //sends a request to the server
-    .then(res => res.json()) //server responds with JSON
-    .then(data => {
+    .then((res) => res.json()) //server responds with JSON
+    .then((data) => {
       document.querySelector('input[name="name"]').value = data.name; //find the name input field and fill it with the value data
       document.querySelector('input[name="website-url"]').value = data.url;
       document.querySelector('input[name="image-url"]').value = data.image_url;
-      document.querySelector('#add-district').value = data.district; //selects the district dropdown and sets the correct option
-      document.querySelector('#venue-type').value = data.category;
+      document.querySelector("#add-district").value = data.district; //selects the district dropdown and sets the correct option
+      document.querySelector("#venue-type").value = data.category;
     });
 }
 
@@ -95,34 +125,37 @@ function updateVenue(event) {
     name: document.querySelector('input[name="name"]').value, //get the name form the input field
     url: document.querySelector('input[name="website-url"]').value,
     image_url: document.querySelector('input[name="image-url"]').value,
-    district: document.querySelector('#add-district').value,
-    category: document.querySelector('#venue-type').value
+    district: document.querySelector("#add-district").value,
+    category: document.querySelector("#venue-type").value,
   };
 
-  fetch(`/api/venues/${id}`, { //sending a request to the server
+  fetch(`/api/venues/${id}`, {
+    //sending a request to the server
     method: "PUT", //telling the server that the request is an update
     headers: {
-      "Content-Type": "application/json" //telling that the data we're sending is JSON
+      "Content-Type": "application/json", //telling that the data we're sending is JSON
     },
-    body: JSON.stringify(updatedVenue) //converting the JavaScript object into JSON text
+    body: JSON.stringify(updatedVenue), //converting the JavaScript object into JSON text
   })
-  .then(res => res.json())
-  .then((data) => {
-    console.log("Updated venue:", data);
-    window.location.href = "/index.html"; //redirecting back to hompage
-  });
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Updated venue:", data);
+      window.location.href = "/index.html"; //redirecting back to hompage
+    });
 }
 
-document.addEventListener("DOMContentLoaded", () => { //once the DOM/HTML page is loaded...
-  if (window.location.pathname.includes("/")) { //run the fetchVenues function if the index.html is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  //once the DOM/HTML page is loaded...
+  if (window.location.pathname.includes("/")) {
+    //run the fetchVenues function if the index.html is loaded
     fetchVenues();
   }
-  if (window.location.pathname.includes("editvenue.html")) { //run the loadVenueEdit function if the editvenue.html is loaded
+  if (window.location.pathname.includes("editvenue.html")) {
+    //run the loadVenueEdit function if the editvenue.html is loaded
     loadVenueEdit();
     const form = document.querySelector("#edit-venue-form");
     form.addEventListener("submit", updateVenue);
   }
 });
-
 
 // FETCH FOR app.delete
