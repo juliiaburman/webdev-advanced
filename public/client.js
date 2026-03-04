@@ -20,7 +20,7 @@ function fetchVenues() {
               <img src="${element.image_url}" alt="Cafe placeholder image" />
             </div>
             <div class="venue-name">
-              <h3>${element.name}</h3>
+              <a href="https://${element.url}"><h3>${element.name}</h3></a>
             </div>
             <div class="venue-district">${element.district}</div>
             <div class="venue-type">${element.category}</div>
@@ -114,7 +114,7 @@ function updateVenue(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => { //once the DOM/HTML page is loaded...
-  if (window.location.pathname.includes("/")) { //run the fetchVenues function if the index.html is loaded
+  if (window.location.pathname.includes("index.html")) { //run the fetchVenues function if the index.html is loaded
     fetchVenues();
   }
   if (window.location.pathname.includes("editvenue.html")) { //run the loadVenueEdit function if the editvenue.html is loaded
