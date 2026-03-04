@@ -18,14 +18,12 @@
   list-style: none;
 }
 
-.login-menu a,
 .add-venue-menu a {
   color: white;
   text-decoration: none;
   margin-right: 5rem;
 }
 
-.login-menu:hover a,
 .add-venue-menu:hover a {
   text-decoration: underline;
 }
