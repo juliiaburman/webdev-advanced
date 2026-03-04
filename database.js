@@ -36,14 +36,21 @@ connectDB(); // should be called before any other function
 // Read the stores.json file and convert it into a JavaScript object
 const data = JSON.parse(fs.readFileSync("stores.json", "utf8"));
 
-data.forEach((venue) => { //Insert venues in the database
-const query = {
+data.forEach((venue) => {
+  //Insert venues in the database
+  const query = {
     text: `INSERT INTO venues (name, url, image_url, district, category) VALUES ($1, $2, $3, $4, $5)`,
-    values: [venue.name, venue.url, venue.image_url, venue.district, venue.category]
+    values: [
+      venue.name,
+      venue.url,
+      venue.image_url,
+      venue.district,
+      venue.category,
+    ],
   };
 
-client.query(query);
-console.log("Inserted venue:", venue.name);
+  client.query(query);
+  console.log("Inserted venue:", venue.name);
 });
 
 disconnectDB(); //should be called at the end
