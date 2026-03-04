@@ -114,7 +114,7 @@ function updateVenue(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => { //once the DOM/HTML page is loaded...
-  if (window.location.pathname.includes("index.html")) { //run the fetchVenues function if the index.html is loaded
+  if (window.location.pathname.includes("/")) { //run the fetchVenues function if the index.html is loaded
     fetchVenues();
   }
   if (window.location.pathname.includes("editvenue.html")) { //run the loadVenueEdit function if the editvenue.html is loaded
