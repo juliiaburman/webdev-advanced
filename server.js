@@ -5,7 +5,8 @@ const express = require("express"); //loads the Express library so it's installe
 const app = express(); //creates your server application
 const PORT = 3000; //port number where the server will run
 
-const client = new Client({ // Configure the client to connect to your containerized PostgreSQL
+const client = new Client({
+  // Configure the client to connect to your containerized PostgreSQL
   host: "localhost", // since the container's port is mapped to localho
   port: 5432,
   user: "postgres", // default user
@@ -22,19 +23,55 @@ async function connectDB() {
     console.error("Connection error", err.stack);
   }
 }
-connectDB(); // should be called before any other function
-
 
 // Middlewares
 app.use(express.json()); //allows us to parse/convert incoming JSON request bodies to JavaScript object so that Express can read it
 app.use("/", express.static("public")); //if the browser asks for a file, express should look inside the public folder
 
+//-------
 // Routes
-app.get("/venues", (req, res) => { //creating a route for the homepage
-  res.json({ message: "The venue route works :)" });//when someone goes to /welcome, send back this text
+//-------
+app.get("/", (req, res) => {
+  res.sendFile("/index.html");
+});
+
+//---------
+// REST API
+//---------
+app.get("/api/venues", (req, res) => {
+  // CRUD READ / SELECT
+  //creating a route
+  const query = {
+    text: `SELECT * FROM venues;`,
+  };
+  client
+    .query(query) //run the query
+    .then((result) => {
+      //awaits the result of the query
+      console.log(result.rows[0]); //then print the resuls
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.error("Error executing query", err.stack);
+      res.status(500).json({ error: "Internal server error" });
+    });
+});
+
+app.post("/api/venues", (req, res) => {
+  // CRUD CREATE / INSERT INTO
+});
+
+app.put("/api/venues", (req, res) => {
+  // CRUD UPDATE / UPDATE
+});
+
+app.delete("/api/venues", (req, res) => {
+  // CRUD DELETE / DELETE
 });
 
 // Start server
-app.listen(PORT, () => { //starts the server
+app.listen(PORT, () => {
+  //starts the server
   console.log(`Server running at http://localhost:${PORT}`); //prints a message so we know the server is running
+  connectDB(); // should be called before any other function
 });

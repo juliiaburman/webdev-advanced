@@ -7,8 +7,6 @@
     <title>WebDev Project</title>
   </head>
   <body>
-    <script type="module" src="/client.js"></script>
-
     <!-- NAVIGATION BAR -->
     <header>
       <nav class="navigation-bar">
@@ -17,37 +15,33 @@
         /></a>
         <ul class="navigation-menu">
           <li class="add-venue-menu"><a href="/addvenue.html">ADD VENUE</a></li>
-          <li class="login-menu"><a href="/login.html">LOGIN</a></li>
         </ul>
       </nav>
     </header>
-  </body>
-</html>
 
-<!--HOME PAGE-->
+    <!--HOME PAGE-->
+    <!--VENUE CARDS SECTION-->
+    <section class="cards-section">
+      <h1>Venues & Activities</h1>
 
-<!--VENUE CARDS SECTION-->
-<section class="cards-section">
-  <h1>Venues & Activities</h1>
+      <div class="sort-container">
+        <select id="sort by">
+          <option value="">Sort by:</option>
+          <option value="district">District</option>
+          <option value="venue-type">Venue Type</option>
+        </select>
+      </div>
 
-  <div class="sort-container">
-    <select id="sort by">
-      <option value="">Sort by:</option>
-      <option value="district">District</option>
-      <option value="venue-type">Venue Type</option>
-    </select>
-  </div>
-
-  <div class="cards-header">
-    <!--Empty column for the image-->
-    <div></div>
-    <div>Venue Name</div>
-    <div>District</div>
-    <div>Venue Type</div>
-    <div>Action</div>
-  </div>
-
-  <div class="venue-card">
+      <div class="cards-header">
+        <!--Empty column for the image-->
+        <div></div>
+        <div>Venue Name</div>
+        <div>District</div>
+        <div>Venue Type</div>
+        <div>Action</div>
+      </div>
+      <div id="listofshops"></div>
+      <!--div class="venue-card">
     <div class="venue-image">
       <img src="img/servicesimage.avif" alt="Cafe placeholder image" />
     </div>
@@ -63,5 +57,8 @@
       <button class="edit-button">Edit</button>
       <button class="delete-button">Delete</button>
     </div>
-  </div>
-</section>
+  </div-->
+    </section>
+    <script type="module" src="/client.js"></script>
+  </body>
+</html>
