@@ -1,12 +1,12 @@
 //Part of the server side (Node + Express)
 
-const { Client } = require("pg"); // Set up a database client to allow Node to connect to the PostgreSQL database running in the Docker container
+const { Client } = require("pg"); // import the Postgres library for Node
 const express = require("express"); //loads the Express library so it's installed
 const app = express(); //creates your server application
 const PORT = 3000; //port number where the server will run
 
 const client = new Client({
-  // Configure the client to connect to your containerized PostgreSQL
+  // Client is a database connection object used to connect Node to your containerized PostgreSQL
   host: "localhost", // since the container's port is mapped to localho
   port: 5432,
   user: "postgres", // default user
@@ -39,17 +39,15 @@ app.get("/", (req, res) => {
 // REST API
 //---------
 
-// CRUD READ / using SELECT
-app.get("/api/venues", (req, res) => {
-  //creating a route
+// CRUD READ / displaying the venues on the homepage
+app.get("/api/venues", (req, res) => { //recieves the get request from the browser
   const query = {
-    text: `SELECT * FROM venues ORDER BY id ASC;`,
+    text: `SELECT * FROM venues ORDER BY id ASC;`, //store the SQL command inside a JavaScript object called query
   };
   client
-    .query(query) //run the query
+    .query(query) //run the query to send the SQL command to the database and execute it
     .then((result) => {
-      //awaits the result of the query
-      res.json(result.rows);
+      res.json(result.rows); //sends back the data/rows of venues from the database to the browser
     })
     .catch((err) => {
       console.error("Error executing query", err.stack);
@@ -57,8 +55,8 @@ app.get("/api/venues", (req, res) => {
     });
 });
 
-// CRUD CREATE / using INSERT INTO
-app.post("/api/venues", async (req, res) => {
+// CRUD CREATE / adding venue through form
+app.post("/api/venues", async (req, res) => { //recieves the post from client
   try {
     const {
       name,
@@ -68,7 +66,7 @@ app.post("/api/venues", async (req, res) => {
       venue,
     } = req.body;
 
-    const query = {
+    const query = { //store the new venue in the database
       text: `INSERT INTO venues (name, url, image_url, district, category)
              VALUES ($1, $2, $3, $4, $5)
              RETURNING *;`,
@@ -83,8 +81,7 @@ app.post("/api/venues", async (req, res) => {
   }
 });
 
-// CRUD UPDATE / using UPDATE
-//
+// CRUD UPDATE / editing existing venues
 app.get("/api/venues/:id", (req, res) => {
   //creating an API route that returns one venue
   const venueId = req.params.id;

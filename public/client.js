@@ -1,16 +1,15 @@
-//array for storing the current sorting option in the dropdown
+//storing the current sorting option in the dropdown
 let currentSort = "";
 
-// FETCH FOR app.get
+// FETCH FOR app.get (displaying venues)
 // Retrieves the venue data from the server, converts it into JSON, and displays as cards on the homepage
 function fetchVenues() {
   const container = document.getElementById("listofvenues");
   container.innerHTML = ""; // clear existing cards
 
-  fetch("/api/venues")
-    .then((response) => response.json())
+  fetch("/api/venues") //when loading homepage and fetching venues from server, a get request is sent
+    .then((response) => response.json()) //converting JSON into JavaScript object
     .then((data) => {
-      console.log("---------> DATA:", data);
 
       //Sorting using dropdown menu
       if (currentSort === "district") { //checks if the user selected the district sorting in the dropdown menu
@@ -76,14 +75,14 @@ function fetchVenues() {
     });
 }
 
-// FETCH FOR app.post
+// FETCH FOR app.post (add venue)
 const addVenueForm = document.querySelector(".add-venue-form");
 
 if (addVenueForm) {
   addVenueForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const formData = new FormData(addVenueForm);
+    const formData = new FormData(addVenueForm); //collect the form data
     const data = {
       name: formData.get("name"),
       "website-url": formData.get("website-url"),
@@ -93,7 +92,7 @@ if (addVenueForm) {
     };
 
     try {
-      const response = await fetch("/api/venues", {
+      const response = await fetch("/api/venues", { //send the data to the server
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -110,13 +109,14 @@ if (addVenueForm) {
     }
   });
 }
-// FETCH FOR app.put
+
+// FETCH FOR app.put (update/edit form)
 //getting the prefilled form for the venue we want to edit
 function loadVenueEdit() {
   const urlData = new URLSearchParams(window.location.search); // extract query parameters (everything after ?) from the URL so we can access values like the venue id more info here https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
   const id = urlData.get("id"); //get the venue id from the URL query parameters
 
-  fetch(`/api/venues/${id}`) //sends a request to the server
+  fetch(`/api/venues/${id}`) //sends a request to the server for thad id
     .then((res) => res.json()) //server responds with JSON
     .then((data) => {
       document.querySelector('input[name="name"]').value = data.name; //find the name input field and fill it with the value data
@@ -141,8 +141,7 @@ function updateVenue(event) {
     category: document.querySelector("#venue-type").value,
   };
 
-  fetch(`/api/venues/${id}`, {
-    //sending a request to the server
+  fetch(`/api/venues/${id}`, { //send a request to the server
     method: "PUT", //telling the server that the request is an update
     headers: {
       "Content-Type": "application/json", //telling that the data we're sending is JSON
