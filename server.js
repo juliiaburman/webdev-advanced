@@ -55,30 +55,32 @@ app.get("/api/venues", (req, res) => { //recieves the get request from the brows
     });
 });
 
-// CRUD CREATE / adding venue through form
-app.post("/api/venues", async (req, res) => { //recieves the post from client
-  try {
-    const {
-      name,
-      "website-url": website_url,
-      "image-url": image_url,
-      district,
-      venue,
-    } = req.body;
+// CRUD CREATE / using INSERT INTO
+app.post("/api/venues", (req, res) => {
+  const {
+    name,
+    "website-url": website_url,
+    "image-url": image_url,
+    district,
+    venue,
+  } = req.body;
 
-    const query = { //store the new venue in the database
-      text: `INSERT INTO venues (name, url, image_url, district, category)
-             VALUES ($1, $2, $3, $4, $5)
-             RETURNING *;`,
-      values: [name, website_url, image_url, district, venue],
-    };
+  const query = {
+    text: `INSERT INTO venues (name, url, image_url, district, category)
+           VALUES ($1, $2, $3, $4, $5)
+           RETURNING *;`,
+    values: [name, website_url, image_url, district, venue],
+  };
 
-    const result = await client.query(query);
-    res.status(201).json(result.rows[0]);
-  } catch (err) {
-    console.error("Error inserting venue", err.stack);
-    res.status(500).json({ error: "Internal server error" });
-  }
+  client
+    .query(query)
+    .then((result) => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch((err) => {
+      console.error("Error inserting venue", err.stack);
+      res.status(500).json({ error: "Internal server error" });
+    });
 });
 
 // CRUD UPDATE / editing existing venues
@@ -128,26 +130,27 @@ app.put("/api/venues/:id", express.json(), (req, res) => {
 });
 
 // CRUD DELETE / using DELETE
-app.delete("/api/venues/:id", async (req, res) => {
+app.delete("/api/venues/:id", (req, res) => {
   const venueId = req.params.id;
 
-  try {
-    const query = {
-      text: `DELETE FROM venues WHERE id = $1 RETURNING *;`,
-      values: [venueId],
-    };
+  const query = {
+    text: `DELETE FROM venues WHERE id = $1 RETURNING *;`,
+    values: [venueId],
+  };
 
-    const result = await client.query(query);
+  client
+    .query(query)
+    .then((result) => {
+      if (result.rowCount === 0) {
+        return res.status(404).json({ error: "Venue not found" });
+      }
 
-    if (result.rowCount === 0) {
-      return res.status(404).json({ error: "Venue not found" });
-    }
-
-    res.status(200).json({ message: "Venue deleted successfully" });
-  } catch (err) {
-    console.error("Error deleting venue", err.stack);
-    res.status(500).json({ error: "Internal server error" });
-  }
+      res.status(200).json({ message: "Venue deleted successfully" });
+    })
+    .catch((err) => {
+      console.error("Error deleting venue", err.stack);
+      res.status(500).json({ error: "Internal server error" });
+    });
 });
 
 // Start server
